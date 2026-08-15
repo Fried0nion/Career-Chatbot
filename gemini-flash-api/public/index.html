@@ -44,18 +44,30 @@
             </div>
           </div>
           
-          <button type="submit" class="send-button">
-            <i class="fas fa-paper-plane"></i>
+          <button type="submit" class="send-button" title="Send message">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
         
         <!-- Selected file indicator -->
         <div id="file-indicator" class="file-indicator"></div>
+
+        <!-- Audio Player Preview -->
+        <div id="audio-preview" class="audio-preview"></div>
       </form>
 
       <!-- Footer Info -->
       <div class="chat-footer">
         <p>Upload your CV, portfolio, or projects for professional feedback and career guidance</p>
+      </div>
+    </div>
+    <!-- Image Modal -->
+    <div id="image-modal" class="image-modal">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <img id="modal-image" src="" alt="Expanded view" class="modal-image" />
       </div>
     </div>
   </div>
