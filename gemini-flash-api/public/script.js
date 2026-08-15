@@ -79,8 +79,20 @@ form.addEventListener('submit', async (e) => {
   try {
     // If file is selected, send file with prompt
     if (selectedFile) {
-      // Use user message as prompt if provided, otherwise use default
-      const prompt = userMessage || `Please analyze this ${selectedFileType}.`;
+      // Use user message as prompt if provided, otherwise generate summary + feedback
+      let prompt;
+      if (userMessage) {
+        prompt = userMessage;
+      } else {
+        // Generate automatic summary and feedback prompt based on file type
+        if (selectedFileType === 'document') {
+          prompt = `Please provide a comprehensive summary of this document, followed by professional feedback and recommendations for improvement.`;
+        } else if (selectedFileType === 'image') {
+          prompt = `Please provide a summary of what is shown in this image, followed by professional feedback and recommendations for improvement.`;
+        } else if (selectedFileType === 'audio') {
+          prompt = `Please transcribe this audio file and provide a summary of the content, followed by professional feedback and recommendations for improvement.`;
+        }
+      }
       await handleFileUpload(prompt);
       clearFileIndicator();
     } 
@@ -296,8 +308,12 @@ function appendMessage(sender, text) {
 
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${sender}`;
-  messageDiv.textContent = text;
 
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
+  contentDiv.textContent = text;
+
+  messageDiv.appendChild(contentDiv);
   chatBox.appendChild(messageDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 

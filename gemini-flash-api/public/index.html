@@ -3,43 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gemini AI Chatbot</title>
+  <title>Career Chatbot by Gemini AI</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="container">
-    <h1>Gemini AI Chatbot</h1>
+  <div class="chat-container">
+    <!-- Header -->
+    <div class="chat-header">
+      <h1><i class="fas fa-briefcase"></i> Career Chatbot</h1>
+      <p>Your AI Career Advisor</p>
+    </div>
+
+    <!-- Chat Messages Area -->
     <div id="chat-box" class="chat-box"></div>
-    
-    <form id="chat-form">
-      <div class="input-wrapper">
-        <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
-        
-        <!-- File Upload Icons -->
-        <div class="upload-icons">
-          <label for="image-upload" title="Upload Image">
-            <i class="fas fa-image"></i>
-            <input type="file" id="image-upload" accept="image/*" hidden />
-          </label>
+
+    <!-- Chat Input Area -->
+    <div class="chat-input-area">
+      <form id="chat-form">
+        <div class="input-container">
+          <div class="input-wrapper">
+            <input type="text" id="user-input" placeholder="Ask me about your CV, projects, or career growth..." autocomplete="off" />
+            
+            <!-- File Upload Icons -->
+            <div class="upload-icons">
+              <label for="image-upload" title="Upload Image">
+                <i class="fas fa-image"></i>
+                <input type="file" id="image-upload" accept="image/*" hidden />
+              </label>
+              
+              <label for="file-upload" title="Upload Document">
+                <i class="fas fa-file"></i>
+                <input type="file" id="file-upload" accept=".pdf,.doc,.docx,.txt,.xlsx,.xls" hidden />
+              </label>
+              
+              <label for="audio-upload" title="Upload Audio">
+                <i class="fas fa-microphone"></i>
+                <input type="file" id="audio-upload" accept="audio/*" hidden />
+              </label>
+            </div>
+          </div>
           
-          <label for="file-upload" title="Upload Document">
-            <i class="fas fa-file"></i>
-            <input type="file" id="file-upload" accept=".pdf,.doc,.docx,.txt,.xlsx,.xls" hidden />
-          </label>
-          
-          <label for="audio-upload" title="Upload Audio">
-            <i class="fas fa-microphone"></i>
-            <input type="file" id="audio-upload" accept="audio/*" hidden />
-          </label>
+          <button type="submit" class="send-button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
+        
+        <!-- Selected file indicator -->
+        <div id="file-indicator" class="file-indicator"></div>
+      </form>
+
+      <!-- Footer Info -->
+      <div class="chat-footer">
+        <p>Upload your CV, portfolio, or projects for professional feedback and career guidance</p>
       </div>
-      
-      <button type="submit">Send</button>
-    </form>
-    
-    <!-- Selected file indicator -->
-    <div id="file-indicator" class="file-indicator"></div>
+    </div>
   </div>
   
   <script src="script.js"></script>

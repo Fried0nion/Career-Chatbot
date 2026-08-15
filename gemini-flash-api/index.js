@@ -55,7 +55,7 @@ app.post("/generate-from-image", upload.single("image"), async (req, res) => {
         const response = await ai.models.generateContent({
             model: GEMINI_MODEL,
             contents: [
-                { text: prompt, type: "text" },
+                { text: prompt ?? "Please provide a summary of what is shown in this image, followed by professional feedback and recommendations for improvement.", type: "text" },
                 { inlineData: { data: base64Image, mimeType: req.file.mimetype } }
             ],
         });
@@ -75,7 +75,7 @@ app.post("/generate-from-document", upload.single("document"), async (req, res) 
         const response = await ai.models.generateContent({
             model: GEMINI_MODEL,
             contents: [
-                { text: prompt ?? "Tolong buat ringkasan dari dokumen berikut.", type: "text" },
+                { text: prompt ?? "Please provide a comprehensive summary of this document, followed by professional feedback and recommendations for improvement.", type: "text" },
                 { inlineData: { data: base64Document, mimeType: req.file.mimetype } }
             ],
         });
@@ -95,7 +95,7 @@ app.post("/generate-from-audio", upload.single("audio"), async (req, res) => {
         const response = await ai.models.generateContent({
             model: GEMINI_MODEL,
             contents: [
-                { text: prompt ?? "Tolong buatkan transkrip dari rekaman berikut.", type: "text" },
+                { text: prompt ?? "Please transcribe this audio file and provide a summary of the content, followed by professional feedback and recommendations for improvement.", type: "text" },
                 { inlineData: { data: base64Audio, mimeType: req.file.mimetype } }
             ],
         });
@@ -125,7 +125,17 @@ app.post('/api/chat', async (req, res) => {
             contents,
             config: {
                 temperature: 0.9,
-                systemInstruction: "Jawab hanya menggunakan bahasa Indonesia.",
+                systemInstruction: `You are a professional career advisor assistant working in a corporate setting. Your role is to help users with their career development by providing expert feedback and guidance on:
+
+- CV/Resume review and optimization
+- Project descriptions and achievements
+- Professional accomplishments and skill highlighting
+- Career advice and development strategies
+- Interview preparation
+- Professional communication and branding
+- Job search strategies and positioning
+
+Always maintain a professional, corporate tone. Provide constructive, actionable feedback. Be encouraging while honest. Focus on career growth and professional excellence. When users upload documents or files, analyze them thoroughly and provide specific, detailed recommendations for improvement. Offer guidance that aligns with industry best practices and professional standards. Answer in English.`,
             },
         });
 
