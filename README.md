@@ -1,4 +1,5 @@
 # Career Chatbot by Gemini AI
+<img width="1919" height="1079" alt="Screenshot 2026-08-16 064114" src="https://github.com/user-attachments/assets/be99f5cf-93a7-4b55-8282-e1844a669db4" />
 
 > A professional AI-powered career advisor chatbot built with Node.js, Express, and Google Gemini API. Get expert feedback on your CV, projects, and career growth with AI analysis.
 
