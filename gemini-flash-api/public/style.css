@@ -121,19 +121,27 @@ body {
   line-height: 1.6;
 }
 
-/* Full width for audio and image messages */
-.message.user:has(.message-image),
-.message.user:has(.message-audio) {
+/* Full width for image messages */
+.message.user:has(.message-image) {
   justify-content: flex-end;
 }
 
-.message.user:has(.message-image) .message-content,
-.message.user:has(.message-audio) .message-content {
+.message.user:has(.message-image) .message-content {
   max-width: 85%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   padding: 8px;
+}
+
+/* Audio message bubble: no padding/background of its own so the custom
+   player (which supplies its own purple bubble) is the only chrome shown. */
+.message-content.message-content--audio {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: 340px;
 }
 
 /* Markdown Styling for Bot Messages */
@@ -256,7 +264,7 @@ body {
   text-decoration: underline;
 }
 
-/* Image and Media Display */
+/* Image Display */
 .message-image {
   max-width: 100%;
   max-height: 300px;
@@ -278,15 +286,199 @@ body {
   border-radius: 12px;
 }
 
-/* Audio Player - sits inside a white pill on top of the purple bubble,
-   so it uses the browser's normal (light) control colors. */
-.message-audio {
-  width: 100% !important;
-  min-height: 40px !important;
-  display: block !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  color-scheme: light;
+/* ============================================================================
+   Custom Audio Player
+   A single, consistently-styled player used everywhere audio appears
+   (chat bubbles and the compose-box preview) instead of the browser's
+   native <audio controls>, which looks different per browser/OS.
+   ============================================================================ */
+.custom-audio-player {
+  width: 100%;
+  min-width: 260px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+.custom-audio-player .audio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.custom-audio-player .audio-label i {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.custom-audio-player .audio-filename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-audio-player .audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.custom-audio-player .audio-play-btn {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #333;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.custom-audio-player .audio-play-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.custom-audio-player .audio-play-btn i {
+  /* Optically center the play triangle */
+  margin-left: 1px;
+}
+
+.custom-audio-player .audio-time {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.custom-audio-player .audio-seek {
+  flex: 1;
+  min-width: 40px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: #ddd;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-audio-player .audio-seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+  margin-top: -4px;
+}
+
+.custom-audio-player .audio-seek::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+}
+
+.custom-audio-player .audio-seek::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+.custom-audio-player .audio-seek::-moz-range-track {
+  height: 3px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+.custom-audio-player .audio-volume-btn {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-audio-player .audio-volume-btn:hover {
+  color: #333;
+}
+
+.custom-audio-player .audio-menu-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.custom-audio-player .audio-menu-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-audio-player .audio-menu-btn:hover {
+  color: #333;
+}
+
+.custom-audio-player .audio-menu-dropdown {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 5;
+  min-width: 110px;
+}
+
+.custom-audio-player .audio-menu-dropdown.open {
+  display: block;
+}
+
+.custom-audio-player .audio-menu-dropdown a {
+  display: block;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.custom-audio-player .audio-menu-dropdown a:hover {
+  background: #f0f0f0;
 }
 
 /* Image Modal */
@@ -525,6 +717,10 @@ body {
     max-width: 85%;
   }
 
+  .message-content.message-content--audio {
+    max-width: 85%;
+  }
+
   .chat-input-area {
     padding: 12px;
   }
@@ -606,6 +802,15 @@ body {
     max-width: 90%;
     padding: 10px 12px;
     font-size: 14px;
+  }
+
+  .message-content.message-content--audio {
+    max-width: 90%;
+    padding: 0;
+  }
+
+  .custom-audio-player {
+    min-width: 0;
   }
 
   .chat-input-area {
