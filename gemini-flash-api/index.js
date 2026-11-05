@@ -146,5 +146,9 @@ Always maintain a professional, corporate tone. Provide constructive, actionable
 });
 
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server ready on http://localhost:${PORT}`));
+export default app;
+
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Server ready on http://localhost:${PORT}`));
+}

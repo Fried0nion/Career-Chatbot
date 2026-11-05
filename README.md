@@ -412,6 +412,25 @@ node index.js
 4. Use HTTPS for security
 5. Deploy on cloud platform (Heroku, Vercel, AWS, etc.)
 
+### Deploying on Vercel
+
+This repository contains the Express app in `gemini-flash-api/`. The root
+`api/index.js` and `vercel.json` expose it as a Vercel Node.js function, so
+the Vercel project should use the repository root as its Root Directory.
+
+In Vercel, configure:
+
+- **Framework Preset:** Other
+- **Build Command:** leave blank
+- **Output Directory:** leave blank
+- **Environment Variable:** `GEMINI_API_KEY` with the value from your Gemini
+  API key
+
+Do not commit `.env`; configure the API key in Vercel instead. If the project
+was previously deployed with `gemini-flash-api` as its Root Directory, either
+change it back to the repository root or remove the root `vercel.json` and
+deploy using a Vercel function entry point inside that directory.
+
 ---
 
 ## Support & Contributing
