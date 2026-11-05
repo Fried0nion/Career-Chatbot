@@ -206,17 +206,19 @@ Server ready on http://localhost:3000
 Career-Chatbot/
 ├── README.md                          # Project documentation
 ├── .gitignore                         # Git ignore rules
+├── package.json                       # Root deployment dependencies
+├── vercel.json                        # Vercel deployment configuration
+├── api/
+│   └── index.js                       # Vercel serverless entry point
 ├── gemini-flash-api/
-│   ├── .env                          # Environment variables (NOT in repo)
-│   ├── index.js                      # Main server file
-│   ├── package.json                  # Project dependencies
-│   ├── package-lock.json             # Locked dependency versions
-│   ├── node_modules/                 # Installed dependencies
+│   ├── .env                           # Local environment variables (NOT in repo)
+│   ├── index.js                       # Express app and local server
+│   ├── package.json                   # Local development dependencies
+│   ├── package-lock.json              # Locked dependency versions
 │   └── public/                       # Frontend files
 │       ├── index.html               # Main HTML page with chat UI
 │       ├── style.css                # Responsive styling and layout
 │       └── script.js                # Chat functionality and API communication
-└── .git/                             # Git repository (if applicable)
 ```
 
 ---
